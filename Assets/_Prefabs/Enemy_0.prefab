@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2762798970596441571}
   - component: {fileID: 8070185629395442099}
   - component: {fileID: 4113095822506667322}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy_0
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,9 +72,6 @@ MonoBehaviour:
   fireRate: 0.3
   health: 10
   score: 100
-  Enemy0: {fileID: 5975030190466285935}
-  Enemy1: {fileID: 8747334484685108500, guid: a898d037fed479c41861f6f96993c1be, type: 3}
-  Enemy2: {fileID: 6348005231754075312, guid: 9776af09fee80b047b454679798988c5, type: 3}
   x: 0
   y: 0
 --- !u!114 &8070185629395442099
@@ -114,9 +111,6 @@ MonoBehaviour:
   fireRate: 0.3
   health: 10
   score: 100
-  Enemy0: {fileID: 5975030190466285935}
-  Enemy1: {fileID: 8747334484685108500, guid: a898d037fed479c41861f6f96993c1be, type: 3}
-  Enemy2: {fileID: 6348005231754075312, guid: 9776af09fee80b047b454679798988c5, type: 3}
   x: 0
   y: 0
 --- !u!1 &5975030190559197697
@@ -131,7 +125,7 @@ GameObject:
   - component: {fileID: 5975030190559197709}
   - component: {fileID: 5975030190559197708}
   - component: {fileID: 5975030190559197711}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: L arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +217,7 @@ GameObject:
   - component: {fileID: 5975030190588068990}
   - component: {fileID: 5975030190588068977}
   - component: {fileID: 5975030190588068976}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +308,7 @@ GameObject:
   - component: {fileID: 5975030190916366827}
   - component: {fileID: 5975030190916366826}
   - component: {fileID: 5975030190916366829}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cockpit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,7 +399,7 @@ GameObject:
   - component: {fileID: 5975030191327953752}
   - component: {fileID: 5975030191327953755}
   - component: {fileID: 5975030191327953754}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: L gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -497,7 +491,7 @@ GameObject:
   - component: {fileID: 5975030191584015411}
   - component: {fileID: 5975030191584015410}
   - component: {fileID: 5975030191584015413}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: R gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -589,7 +583,7 @@ GameObject:
   - component: {fileID: 5975030191928243801}
   - component: {fileID: 5975030191928243800}
   - component: {fileID: 5975030191928243803}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: R arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}

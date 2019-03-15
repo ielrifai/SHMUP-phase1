@@ -14,11 +14,11 @@ public class Enemy : MonoBehaviour
 
 
 
-    private BoundsCheck bndCheck;
+    private BoundsCheck _bndCheck;
 
     void Awake()
     {
-        bndCheck = GetComponent<BoundsCheck>();
+        _bndCheck = GetComponent<BoundsCheck>();
 
     }
 
@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
     {
         Move();
 
-        if (bndCheck != null && bndCheck.offDown)
+        if (_bndCheck != null && _bndCheck.offDown)
         {
             Destroy(gameObject);
         }

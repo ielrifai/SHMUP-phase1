@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2318213162788916309}
   - component: {fileID: 8587300748983215903}
   - component: {fileID: 5844635141883483123}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy_2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,9 +70,6 @@ MonoBehaviour:
   fireRate: 0.3
   health: 10
   score: 100
-  Enemy0: {fileID: 5975030190466285935, guid: db4894753c67a164bb5ec39546f2061d, type: 3}
-  Enemy1: {fileID: 8747334484685108500, guid: a898d037fed479c41861f6f96993c1be, type: 3}
-  Enemy2: {fileID: 6348005231754075312}
   x: 0
   y: 0
 --- !u!114 &8587300748983215903
@@ -112,9 +109,6 @@ MonoBehaviour:
   fireRate: 0.3
   health: 10
   score: 100
-  Enemy0: {fileID: 5975030190466285935, guid: db4894753c67a164bb5ec39546f2061d, type: 3}
-  Enemy1: {fileID: 8747334484685108500, guid: a898d037fed479c41861f6f96993c1be, type: 3}
-  Enemy2: {fileID: 6348005231754075312}
   x: 0
   y: 0
 --- !u!1 &6348005232451913762
@@ -129,7 +123,7 @@ GameObject:
   - component: {fileID: 6348005232451913766}
   - component: {fileID: 6348005232451913765}
   - component: {fileID: 6348005232451913764}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: R gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +215,7 @@ GameObject:
   - component: {fileID: 6348005232475719053}
   - component: {fileID: 6348005232475719052}
   - component: {fileID: 6348005232475719051}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Connector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +307,7 @@ GameObject:
   - component: {fileID: 6348005233244402826}
   - component: {fileID: 6348005233244402825}
   - component: {fileID: 6348005233244402824}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: L gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,7 +399,7 @@ GameObject:
   - component: {fileID: 6348005233410526350}
   - component: {fileID: 6348005233410526349}
   - component: {fileID: 6348005233410526348}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cockpit
   m_TagString: Untagged
   m_Icon: {fileID: 0}

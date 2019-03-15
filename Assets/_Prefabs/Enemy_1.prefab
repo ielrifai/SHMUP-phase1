@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8747334483760458196}
   - component: {fileID: 8747334483760458197}
   - component: {fileID: 8747334483760458198}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: X1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 8747334484559892839}
   - component: {fileID: 8747334484559892832}
   - component: {fileID: 8747334484559892833}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,9 +197,9 @@ GameObject:
   - component: {fileID: 2455781657668697249}
   - component: {fileID: 4565056024421987659}
   - component: {fileID: 2317162513706668226}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy_1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -254,9 +254,6 @@ MonoBehaviour:
   fireRate: 0.3
   health: 10
   score: 100
-  Enemy0: {fileID: 5975030190466285935, guid: db4894753c67a164bb5ec39546f2061d, type: 3}
-  Enemy1: {fileID: 8747334484685108500}
-  Enemy2: {fileID: 6348005231754075312, guid: 9776af09fee80b047b454679798988c5, type: 3}
   x: 0
   y: 0
 --- !u!114 &4565056024421987659
@@ -296,9 +293,6 @@ MonoBehaviour:
   fireRate: 0.3
   health: 10
   score: 100
-  Enemy0: {fileID: 5975030190466285935, guid: db4894753c67a164bb5ec39546f2061d, type: 3}
-  Enemy1: {fileID: 8747334484685108500}
-  Enemy2: {fileID: 6348005231754075312, guid: 9776af09fee80b047b454679798988c5, type: 3}
   x: 0
   y: 0
 --- !u!1 &8747334485249472806
@@ -313,7 +307,7 @@ GameObject:
   - component: {fileID: 8747334485249472810}
   - component: {fileID: 8747334485249472811}
   - component: {fileID: 8747334485249472804}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cockpit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +398,7 @@ GameObject:
   - component: {fileID: 8747334485251255169}
   - component: {fileID: 8747334485251255170}
   - component: {fileID: 8747334485251255171}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: X2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
