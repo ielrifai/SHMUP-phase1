@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class Main : MonoBehaviour
 {
     static public Main S;
+    static Dictionary<WeaponType, WeaponDefinition> WEAP_DICT; 
 
     [Header("Set in Inspector")]
     public GameObject[] prefabEnemies;
     public float enemySpawnPerSecond = 0.5f;
     public float enemyDefaultpadding = 1.5f;
+    public WeaponDefinition[] weaponDefinitions;
+    public Text scoreText;
+    public Text highScoreText;
 
     private BoundsCheck _bndCheck;
+    
 
     //Called when the game starts
     void Awake()
@@ -20,6 +26,12 @@ public class Main : MonoBehaviour
 
         _bndCheck = GetComponent<BoundsCheck>();
         Invoke("SpawnEnemy", 1f / enemySpawnPerSecond);
+
+        WEAP_DICT = new Dictionary<WeaponType, WeaponDefinition>();
+        foreach (WeaponDefinition def in weaponDefinitions)
+            WEAP_DICT[def.type] = def;
+
+        UpdateHighScore();// displays high score
     }
 
     // Spawns enemies
@@ -52,6 +64,33 @@ public class Main : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene("_Scene_0");
+
+        // Update the high score
+        if (Score.score > Score.highScore)
+            Score.AddHighScore(Score.score);
+
+        Score.ResetScore(); // set the score to zero
     }
+
     
+    //Get a WeaponDefinition from WEAP_DICT
+    static public WeaponDefinition GetWeaponDefinition(WeaponType weaponType)
+    {
+        if (WEAP_DICT.ContainsKey(weaponType))
+            return (WEAP_DICT[weaponType]);
+        return (new WeaponDefinition());  
+    }
+
+    public void UpdateScore()
+    {
+        scoreText.text = "Score: " + Score.score.ToString(); // displays the score stored in the Score class
+    }
+    public void UpdateHighScore()
+    {
+        highScoreText.text = "High Score: " + Score.highScore.ToString();// displays the higscore stored in the Score class
+    }
+    public void Update()
+    {
+        UpdateScore();// displays current score
+    }
 }

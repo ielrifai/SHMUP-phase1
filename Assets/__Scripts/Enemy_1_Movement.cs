@@ -14,12 +14,16 @@ public class Enemy_1_Movement : Enemy
         {
             x = -1;
         }
+        this.SetHealth(7);
     }
 
+    // Update is called once per frame
     void Update()
     {
         Move();
     }
+
+    // Overrides the Move method in the base class
     public override void Move()
     {
         base.Move();

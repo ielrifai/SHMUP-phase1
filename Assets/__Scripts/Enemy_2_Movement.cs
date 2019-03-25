@@ -9,13 +9,17 @@ public class Enemy_2_Movement : Enemy
     void Start()
     {
         y = -1;
-       
+        this.SetHealth(9);
+
     }
 
+    // Update is called once per frame
     void Update()
     {
         Move();
     }
+
+    // Overrides the Move method in the mase class
     public override void Move()
     {
         counter += 6;

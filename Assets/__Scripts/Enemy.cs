@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
+    // Declare the variables
     public float speed = 10f;
     public float fireRate = 0.3f;
     public float health = 10;
+    public int points = 10; // used to calculate score
     public int score = 100;
     public float x = 0;
     public float y = 0;
@@ -40,6 +41,7 @@ public class Enemy : MonoBehaviour
     {
         Move();
 
+        // Destroy the enemy
         if (_bndCheck != null && _bndCheck.offDown)
         {
             Destroy(gameObject);
@@ -53,5 +55,28 @@ public class Enemy : MonoBehaviour
         tempPos.y += y* speed * Time.deltaTime;
         pos = tempPos;
     }
-    
+
+    public void SetHealth(float x) 
+    {
+        health = x;
+        points = (int)x/2 - 1;
+    }
+
+    // Allows the enemy to take damage
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject otherGO = collision.gameObject;
+        if (otherGO.tag == "ProjectileHero")
+        {
+            Destroy(otherGO);  
+            health--;
+            if (health == 0)
+            {
+                Score.AddScore(points);
+                Destroy(gameObject);  
+            }
+        }
+        else
+            print("Enemy hit by a non-Projectile Hero: " + otherGO.name);
+    }
 }

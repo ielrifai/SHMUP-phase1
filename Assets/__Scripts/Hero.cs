@@ -12,6 +12,8 @@ public class Hero : MonoBehaviour
     public float rollMult = -45;
     public float pitchMult = 30;
     public float gameRestartDelay = 2f;
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 40;
 
     [Header("Set Dynamically")]
     [SerializeField]
@@ -19,6 +21,11 @@ public class Hero : MonoBehaviour
 
 
     private GameObject _lastTriggerGo = null;
+
+    // Declare a new delegate type WeaponFireDelegate
+    public delegate void WeaponFireDelegate(); 
+    // Create a WeaponFireDelegate field named fireDelegate.
+    public WeaponFireDelegate fireDelegate;
 
     void Awake() {
         if(S==null)
@@ -42,7 +49,13 @@ public class Hero : MonoBehaviour
 
         // Rotate the ship
         transform.rotation = Quaternion.Euler(yAxis * pitchMult, xAxis * rollMult, 0);
+
+
+        // Shoot projectile
+        if (Input.GetKeyDown(KeyCode.Space) && fireDelegate != null)
+            fireDelegate();
     }
+
 
     void OnTriggerEnter(Collider other)
     {
@@ -60,12 +73,13 @@ public class Hero : MonoBehaviour
         {
             shieldLevel--;
             Destroy(go);
+            Score.AddScore(1); // One point is awarded for destroying an enemy by crashing into it
         }
         else
             print("Triggered by non-enemy: " + go.name);
     }
 
-    // shieldLeve property
+    // shieldLevel property
     public float shieldLevel
     {
         get
