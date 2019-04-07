@@ -5,7 +5,7 @@ using UnityEngine;
 public class Score : MonoBehaviour
 {
     public static int score=0;// stores current score
-    public static int highScore=0;// stores highscore
+    public static int highScore=0;// stores high score
 
     // Updates the score variable 
     public static void AddScore(int points)
@@ -15,9 +15,9 @@ public class Score : MonoBehaviour
     }
 
     // Updates the high score variable
-    public static void AddHighScore(int high)
+    public static void ChangeHighScore(int high)
     {
-        highScore= high;
+        highScore = high;
     }
 
     // Resets the score to zero

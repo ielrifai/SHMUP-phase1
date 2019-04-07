@@ -253,9 +253,11 @@ MonoBehaviour:
   speed: 10
   fireRate: 0.3
   health: 10
-  score: 100
+  points: 10
   x: 0
   y: 0
+  notifiedOfDestruction: 0
+  collided: 0
 --- !u!114 &4565056024421987659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7832bc928476f5e48aee8e3613dfeab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 4
+  radius: -4.5
   keepOnScreen: 0
   isOnScreen: 1
   camWidth: 0
@@ -292,9 +294,11 @@ MonoBehaviour:
   speed: 10
   fireRate: 0.3
   health: 10
-  score: 100
+  points: 10
   x: 0
   y: 0
+  notifiedOfDestruction: 0
+  collided: 0
 --- !u!1 &8747334485249472806
 GameObject:
   m_ObjectHideFlags: 0

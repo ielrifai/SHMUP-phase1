@@ -15,6 +15,7 @@ public class BoundsCheck : MonoBehaviour
 
     [HideInInspector]
     public bool offRight, offLeft, offUp, offDown;
+
     void Awake()
     {
         camHeight = Camera.main.orthographicSize;
@@ -28,15 +29,15 @@ public class BoundsCheck : MonoBehaviour
         isOnScreen = true;
         offRight = offLeft = offUp = offDown = false;
 
-        if (pos.x > camWidth - radius)
+        if (pos.x > camWidth - 0.75f*radius)
         {
-            pos.x = camWidth - radius;
+            pos.x = camWidth - 0.75f*radius;
             offRight = true;
         }
 
-        if (pos.x < -camWidth + radius)
+        if (pos.x < -camWidth + 0.75f * radius)
         {
-            pos.x = -camWidth + radius;
+            pos.x = -camWidth + 0.75f * radius;
             offLeft = true;
         }
 

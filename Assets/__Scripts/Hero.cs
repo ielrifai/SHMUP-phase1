@@ -8,19 +8,26 @@ public class Hero : MonoBehaviour
 
     [Header("Set in Inspector")]
     // Variables to control ship movement
-    public float speed = 30;
     public float rollMult = -45;
     public float pitchMult = 30;
     public float gameRestartDelay = 2f;
-    public GameObject projectilePrefab;
-    public float projectileSpeed = 40;
+    
+    public float damageIncrement = 0.25f;
+    public float speedIncrement = 5f;
+
+    public static float projectileDamageStatic = 1; // used to store the damage done by the hero projectile
 
     [Header("Set Dynamically")]
     [SerializeField]
     private float _shieldLevel = 4;
-
+    public float speed = 30;
+    public float projectileDamage = 1;
+    
 
     private GameObject _lastTriggerGo = null;
+    private float _projectileDamageHolder; // used to keep track of the projectile damage
+    private float _startingProjectileDamage; // used to reset the projectile damage 
+    private float _startingSpeed; // used to reset the projectile damage
 
     // Declare a new delegate type WeaponFireDelegate
     public delegate void WeaponFireDelegate(); 
@@ -32,6 +39,10 @@ public class Hero : MonoBehaviour
             S = this; // set singleton
         else
             Debug.LogError("Hero.Awake() - Attempted to assign second Hero.S!");
+
+        _projectileDamageHolder = projectileDamage; // initialize the projectile damage holder variable
+        _startingProjectileDamage = projectileDamage;
+        _startingSpeed = speed;
     }
 
     // Update is called once per frame
@@ -53,7 +64,22 @@ public class Hero : MonoBehaviour
 
         // Shoot projectile
         if (Input.GetKeyDown(KeyCode.Space) && fireDelegate != null)
+        {
             fireDelegate();
+        }
+
+        projectileDamageStatic = projectileDamage; // update the static projectile damage variable so it equals the local version
+    }
+
+
+    // Used to make sure the damage is updated after the weapon is switched
+    void LateUpdate()
+    {
+        // Update the damage value of the projectile
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            UpdateProjectileDamage();
+        }
     }
 
 
@@ -72,11 +98,62 @@ public class Hero : MonoBehaviour
         if(go.tag == "Enemy")
         {
             shieldLevel--;
+            SoundManagerScript.PlaySound("damaged");
             Destroy(go);
-            Score.AddScore(1); // One point is awarded for destroying an enemy by crashing into it
+            Score.AddScore(1); // One point is rewarded for destroying an enemy by crashing into it
+        }
+
+        // Absorb the power up upon collision
+        else if(go.tag == "PowerUp")
+        {
+            AbsorbPowerUp(go);
         }
         else
             print("Triggered by non-enemy: " + go.name);
+    }
+
+    // Method to absorb the power up
+    public void AbsorbPowerUp(GameObject go)
+    {
+        PowerUp pu = go.GetComponent<PowerUp>();
+        switch (pu.letter.text) {
+            case "S":
+                speed += speedIncrement; // increase the hero's speed
+                SoundManagerScript.PlaySound("powerUp");
+                break;
+            case "D":
+                _projectileDamageHolder += damageIncrement; // increase the hero's projectile damage
+                UpdateProjectileDamage();
+                SoundManagerScript.PlaySound("powerUp");
+                break;
+            default:
+                shieldLevel--; // decrease the hero's shield level
+                ResetSpeed(); // reset the hero's speed to its defaut value
+                ResetProjectileDamage(); // reset the hero's projectile damage to its default
+                UpdateProjectileDamage();
+                SoundManagerScript.PlaySound("powerUpBad");
+                break;
+        }
+        pu.AbsorbedBy(this.gameObject);
+    }
+
+    
+    // Method to reset the hero's speed to its default value
+    public void ResetSpeed()
+    {
+        speed = _startingSpeed;
+    }
+
+    // Method to reset the holder for the hero projectile's damage to its default value
+    public void ResetProjectileDamage()
+    {
+        _projectileDamageHolder = _startingProjectileDamage;
+    }
+
+    // Method to update the hero's projectile damage whenever the weapon changes of a power-up is collected
+    public void UpdateProjectileDamage()
+    {
+        projectileDamage = Weapon.damageMultiplierStatic * _projectileDamageHolder;
     }
 
     // shieldLevel property
@@ -95,6 +172,9 @@ public class Hero : MonoBehaviour
             if (value < 0)
             {
                 Destroy(this.gameObject);
+                ResetSpeed(); // reset the hero's speed to its defaut value
+                ResetProjectileDamage(); // reset the holder for the hero's projectile damage to its default
+                UpdateProjectileDamage(); // reset the hero's projectile damage to its default
                 Main.S.DelayedRestart(gameRestartDelay);
             }
         }

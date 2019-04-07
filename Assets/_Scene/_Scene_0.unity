@@ -267,14 +267,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a02b4e93bd2cd34daa2fbd012cc3b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
   rollMult: -45
   pitchMult: 30
   gameRestartDelay: 2
-  projectilePrefab: {fileID: 4933762007952931938, guid: 9c8182e08edfec94293432c2526ae1a0,
-    type: 3}
-  projectileSpeed: 40
+  damageIncrement: 0.25
+  speedIncrement: 5
   _shieldLevel: 4
+  speed: 30
+  projectileDamage: 1
 --- !u!1 &280762940
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,9 +398,9 @@ GameObject:
   - component: {fileID: 534669904}
   - component: {fileID: 534669903}
   - component: {fileID: 534669907}
-  - component: {fileID: 534669906}
   - component: {fileID: 534669909}
   - component: {fileID: 534669908}
+  - component: {fileID: 534669906}
   m_Layer: 0
   m_Name: _MainCamera
   m_TagString: MainCamera
@@ -485,22 +485,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabEnemies:
-  - {fileID: 5975030190466285934, guid: db4894753c67a164bb5ec39546f2061d, type: 3}
+  - {fileID: 6348005231754075327, guid: 9776af09fee80b047b454679798988c5, type: 3}
   enemySpawnPerSecond: 0.5
   enemyDefaultpadding: 1.5
   weaponDefinitions:
-  - type: 1
-    letter: B
+  - type: 0
     color: {r: 1, g: 1, b: 1, a: 1}
     projectilePrefab: {fileID: 4933762007952931938, guid: 9c8182e08edfec94293432c2526ae1a0,
       type: 3}
     projectileColor: {r: 1, g: 1, b: 1, a: 1}
-    damageOnHit: 1
-    continuousDamage: 0
-    delayBetweenShots: 0.2
+    multiplier: 1
+    delayBetweenShots: 0.3
     velocity: 50
+  - type: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    projectilePrefab: {fileID: 4933762007952931938, guid: 9c8182e08edfec94293432c2526ae1a0,
+      type: 3}
+    projectileColor: {r: 1, g: 1, b: 1, a: 1}
+    multiplier: 1
+    delayBetweenShots: 0.5
+    velocity: 50
+  - type: 3
+    color: {r: 0, g: 1, b: 1, a: 1}
+    projectilePrefab: {fileID: 4933762007952931938, guid: ee14bdb2839b0bf4aa53e80837f70b48,
+      type: 3}
+    projectileColor: {r: 0, g: 1, b: 1, a: 1}
+    multiplier: 10
+    delayBetweenShots: 7
+    velocity: 75
+  - type: 2
+    color: {r: 1, g: 0, b: 0, a: 1}
+    projectilePrefab: {fileID: 4933762007952931938, guid: 481086bf89b48ca49bfa0f6b773fd7dc,
+      type: 3}
+    projectileColor: {r: 1, g: 0, b: 0, a: 1}
+    multiplier: 100
+    delayBetweenShots: 45
+    velocity: 50
+  prefabPowerUp: {fileID: 5372350630539827100, guid: e2b24e0e3487e8b48891e36273add4d4,
+    type: 3}
   scoreText: {fileID: 5927430337260623679}
   highScoreText: {fileID: 5927430337748916379}
+  pUpDropChance: 15
 --- !u!114 &534669907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,22 +560,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabEnemies:
-  - {fileID: 6348005231754075327, guid: 9776af09fee80b047b454679798988c5, type: 3}
+  - {fileID: 8747334484685108501, guid: a898d037fed479c41861f6f96993c1be, type: 3}
   enemySpawnPerSecond: 0.5
   enemyDefaultpadding: 1.5
   weaponDefinitions:
-  - type: 1
-    letter: B
+  - type: 0
     color: {r: 1, g: 1, b: 1, a: 1}
     projectilePrefab: {fileID: 4933762007952931938, guid: 9c8182e08edfec94293432c2526ae1a0,
       type: 3}
     projectileColor: {r: 1, g: 1, b: 1, a: 1}
-    damageOnHit: 1
-    continuousDamage: 0
-    delayBetweenShots: 0.2
+    multiplier: 1
+    delayBetweenShots: 0.3
     velocity: 50
+  - type: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    projectilePrefab: {fileID: 4933762007952931938, guid: 9c8182e08edfec94293432c2526ae1a0,
+      type: 3}
+    projectileColor: {r: 1, g: 1, b: 1, a: 1}
+    multiplier: 1
+    delayBetweenShots: 0.5
+    velocity: 50
+  - type: 3
+    color: {r: 0, g: 1, b: 1, a: 1}
+    projectilePrefab: {fileID: 4933762007952931938, guid: ee14bdb2839b0bf4aa53e80837f70b48,
+      type: 3}
+    projectileColor: {r: 0, g: 1, b: 1, a: 1}
+    multiplier: 10
+    delayBetweenShots: 7
+    velocity: 75
+  - type: 2
+    color: {r: 1, g: 0, b: 0, a: 1}
+    projectilePrefab: {fileID: 4933762007952931938, guid: 481086bf89b48ca49bfa0f6b773fd7dc,
+      type: 3}
+    projectileColor: {r: 1, g: 0, b: 0, a: 1}
+    multiplier: 100
+    delayBetweenShots: 45
+    velocity: 50
+  prefabPowerUp: {fileID: 5372350630539827100, guid: e2b24e0e3487e8b48891e36273add4d4,
+    type: 3}
   scoreText: {fileID: 5927430337260623679}
   highScoreText: {fileID: 5927430337748916379}
+  pUpDropChance: 15
 --- !u!114 &534669909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,22 +614,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabEnemies:
-  - {fileID: 8747334484685108501, guid: a898d037fed479c41861f6f96993c1be, type: 3}
+  - {fileID: 5975030190466285934, guid: db4894753c67a164bb5ec39546f2061d, type: 3}
   enemySpawnPerSecond: 0.5
   enemyDefaultpadding: 1.5
   weaponDefinitions:
-  - type: 1
-    letter: B
+  - type: 0
     color: {r: 1, g: 1, b: 1, a: 1}
     projectilePrefab: {fileID: 4933762007952931938, guid: 9c8182e08edfec94293432c2526ae1a0,
       type: 3}
     projectileColor: {r: 1, g: 1, b: 1, a: 1}
-    damageOnHit: 1
-    continuousDamage: 0
-    delayBetweenShots: 0.2
+    multiplier: 1
+    delayBetweenShots: 0.3
     velocity: 50
+  - type: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
+    projectilePrefab: {fileID: 4933762007952931938, guid: 9c8182e08edfec94293432c2526ae1a0,
+      type: 3}
+    projectileColor: {r: 1, g: 1, b: 1, a: 1}
+    multiplier: 1
+    delayBetweenShots: 0.5
+    velocity: 50
+  - type: 3
+    color: {r: 0, g: 1, b: 1, a: 1}
+    projectilePrefab: {fileID: 4933762007952931938, guid: ee14bdb2839b0bf4aa53e80837f70b48,
+      type: 3}
+    projectileColor: {r: 0, g: 1, b: 1, a: 1}
+    multiplier: 10
+    delayBetweenShots: 7
+    velocity: 75
+  - type: 2
+    color: {r: 1, g: 0, b: 0, a: 1}
+    projectilePrefab: {fileID: 4933762007952931938, guid: 481086bf89b48ca49bfa0f6b773fd7dc,
+      type: 3}
+    projectileColor: {r: 1, g: 0, b: 0, a: 1}
+    multiplier: 100
+    delayBetweenShots: 45
+    velocity: 50
+  prefabPowerUp: {fileID: 5372350630539827100, guid: e2b24e0e3487e8b48891e36273add4d4,
+    type: 3}
   scoreText: {fileID: 5927430337260623679}
   highScoreText: {fileID: 5927430337748916379}
+  pUpDropChance: 15
 --- !u!1 &632033495
 GameObject:
   m_ObjectHideFlags: 0
@@ -1003,6 +1078,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weapon
       objectReference: {fileID: 0}
+    - target: {fileID: 3722203927462462576, guid: 812a710c21be87945ac9888291fc1c61,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3863906704193340842, guid: 812a710c21be87945ac9888291fc1c61,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1061,7 +1141,22 @@ PrefabInstance:
     - target: {fileID: 6495498635458051337, guid: 812a710c21be87945ac9888291fc1c61,
         type: 3}
       propertyPath: _type
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495498635458051337, guid: 812a710c21be87945ac9888291fc1c61,
+        type: 3}
+      propertyPath: def.type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270582213461178402, guid: 812a710c21be87945ac9888291fc1c61,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8718113531349854267, guid: 812a710c21be87945ac9888291fc1c61,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 812a710c21be87945ac9888291fc1c61, type: 3}
@@ -1296,7 +1391,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 22
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1375,7 +1470,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 22
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1487,3 +1582,143 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &8173916336560283560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8173916336560283565}
+  - component: {fileID: 8173916336560283562}
+  - component: {fileID: 8173916336560283561}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &8173916336560283561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8173916336560283560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e7f405df5ef304aa7146cad5dd4268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!82 &8173916336560283562
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8173916336560283560}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &8173916336560283565
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8173916336560283560}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

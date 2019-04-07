@@ -10,36 +10,42 @@ using UnityEngine;
 /// </summary>
 public enum WeaponType
 {
-    none, // The default / no weapon
-    blaster // A simple blaster
+    simple, // The default weapon
+    blaster, // Shoots three bullets
+    nuke,  // destroys all enemies on screen
+    homing // targets the closest enemy
 }
 
 
 [System.Serializable] 
 public class WeaponDefinition
 { 
-    public WeaponType type = WeaponType.none;
-    public string letter; // Letter to show on the power-up
+    public WeaponType type = WeaponType.simple;
     public Color color = Color.white; // Color of Collar & power-up
     public GameObject projectilePrefab; // Prefab for projectiles
     public Color projectileColor = Color.white;
-    public float damageOnHit = 0; // Amount of damage caused
-    public float continuousDamage = 0; // Damage per second (Laser)
-    public float delayBetweenShots = 0;
-    public float velocity = 20; // Speed of projectiles
+    public float multiplier = 1; // doesn't do anything right now
+    public float delayBetweenShots = 0.3f;
+    public float velocity = 50; // Speed of projectiles
 }
+
 
 
 public class Weapon : MonoBehaviour
 {
     static public Transform PROJECTILE_ANCHOR;
+    public float angle;
+
+    public static float damageMultiplierStatic = 1;
 
     [Header("Set Dynamically")]
     [SerializeField]
-    private WeaponType _type = WeaponType.none;
+    private WeaponType _type = WeaponType.simple;
     public WeaponDefinition def;
     public GameObject collar;
     public float lastShotTime; // Time last shot was fired
+    public float lastHomingTime = 0; // Time the homing missile was last used
+    public float lastNukeTime = 0; // Time the nuke was last used
 
     private Renderer collarRend;
 
@@ -47,18 +53,18 @@ public class Weapon : MonoBehaviour
     {
         collar = transform.Find("Collar").gameObject;
         collarRend = collar.GetComponent<Renderer>();
-        
-        // Call SetType() for the default _type of WeaponType.none
-        SetType(_type); 
-        
+
+        // Call SetType() for the default _type of WeaponType.simple
+        SetType(_type);
+
         // Dynamically create an anchor for all Projectiles
         if (PROJECTILE_ANCHOR == null)
-        { 
+        {
             GameObject go = new GameObject("_ProjectileAnchor");
             PROJECTILE_ANCHOR = go.transform;
         }
         // Find the fireDelegate of the root GameObject
-        GameObject rootGO = transform.root.gameObject; 
+        GameObject rootGO = transform.root.gameObject;
         if (rootGO.GetComponent<Hero>() != null)
         { // d
             rootGO.GetComponent<Hero>().fireDelegate += Fire;
@@ -72,16 +78,25 @@ public class Weapon : MonoBehaviour
         {
             if (_type == WeaponType.blaster)
             {
-                _type = WeaponType.none;
-                SetType(_type);
+                SetType(WeaponType.homing);
+            }
+
+            else if (_type == WeaponType.homing)
+            {
+                SetType(WeaponType.nuke);
+            }
+
+            else if (_type == WeaponType.nuke)
+            {
+                SetType(WeaponType.simple);
             }
 
             else
             {
-                _type = WeaponType.blaster;
-                SetType(_type);
-
+                SetType(WeaponType.blaster);
             }
+
+            damageMultiplierStatic = def.multiplier;
         }
     }
 
@@ -94,19 +109,28 @@ public class Weapon : MonoBehaviour
     public void SetType(WeaponType wt)
     {
         _type = wt;
-        if (type == WeaponType.none)
-        { 
-            this.transform.localScale = new Vector3(0, 0, 0); // makes the weapon invisible
-            return;
-        }
-        else
+        if (type == WeaponType.simple)
         {
-            this.transform.localScale = new Vector3(1, 1, 1); // makes the weapon visible
+            this.transform.localScale = new Vector3(0, 0, 0); // makes the weapon invisible
+        }
+        else if (type == WeaponType.blaster)
+        {
+            this.transform.localScale = new Vector3(1, 1, 1); // makes the blaster weapon visible 
         }
 
-        def = Main.GetWeaponDefinition(_type); 
+        else if (type == WeaponType.homing)
+        {
+            this.transform.localScale = new Vector3(1, 2, 1); // re-proportions the blaster weapon into the homing missile weapon
+        }
+
+        else
+        {
+            this.transform.localScale = new Vector3(2, 2, 2); // re-proportions the blaster weapon into the nuke weapon
+        }
+
+        def = Main.GetWeaponDefinition(wt);
         collarRend.material.color = def.color;
-        lastShotTime = 0; // You can fire immediately after _type is set. 
+        lastShotTime = 0; // You can fire immediately after _type is set.
     }
 
     public void Fire()
@@ -115,8 +139,20 @@ public class Weapon : MonoBehaviour
         if (!gameObject.activeInHierarchy) return;
 
         // If it hasn't been enough time between shots, return
-        if (Time.time - lastShotTime < def.delayBetweenShots)
+        if (Time.time - lastShotTime < def.delayBetweenShots && (type == WeaponType.simple || type == WeaponType.blaster))
         { 
+            return;
+        }
+
+        // If it hasn't been enough time between missie use, return
+        if (Time.time - lastHomingTime < def.delayBetweenShots && type == WeaponType.homing)
+        {
+            return;
+        }
+
+        // If it hasn't been enough time between missie use, return
+        if (Time.time - lastNukeTime < def.delayBetweenShots && type == WeaponType.nuke)
+        {
             return;
         }
 
@@ -130,11 +166,6 @@ public class Weapon : MonoBehaviour
 
         switch (type)
         { 
-            case WeaponType.none:
-                p = MakeProjectile(); 
-                p.rigid.velocity = vel;
-                break;
-
             case WeaponType.blaster:
                 p = MakeProjectile(); // middle projectile
                 p.rigid.velocity = vel;
@@ -144,6 +175,30 @@ public class Weapon : MonoBehaviour
                 p = MakeProjectile(); // left projectile
                 p.transform.rotation = Quaternion.AngleAxis(-30, Vector3.back);
                 p.rigid.velocity = p.transform.rotation * vel;
+                SoundManagerScript.PlaySound("shoot");
+                break;
+
+            case WeaponType.nuke:
+                p = MakeProjectile();
+                p.rigid.velocity = vel;
+                SoundManagerScript.PlaySound("shoot");
+                lastNukeTime = Time.time;
+                break;
+
+            case WeaponType.homing:
+                p = MakeProjectile();
+                setAngle();
+                p.transform.rotation = Quaternion.AngleAxis(angle, Vector3.back);
+                p.rigid.velocity = p.transform.rotation * vel;
+                SoundManagerScript.PlaySound("shoot");
+                lastHomingTime = Time.time;
+                break;
+
+            // for the simple weapon type
+            default:      
+                p = MakeProjectile();
+                p.rigid.velocity = vel;
+                SoundManagerScript.PlaySound("shoot");
                 break;
         }
     }
@@ -152,6 +207,7 @@ public class Weapon : MonoBehaviour
     { 
         GameObject go = Instantiate<GameObject>(def.projectilePrefab);
 
+        /*
         if (transform.parent.gameObject.tag == "Hero")
         { 
             go.tag = "ProjectileHero";
@@ -161,13 +217,43 @@ public class Weapon : MonoBehaviour
         {
             go.tag = "ProjectileEnemy";
             go.layer = LayerMask.NameToLayer("ProjectileEnemy");
-        }
+        }*/
 
         go.transform.position = collar.transform.position;
-        go.transform.SetParent(PROJECTILE_ANCHOR, true); // o
+        go.transform.SetParent(PROJECTILE_ANCHOR, true); 
         Projectile p = go.GetComponent<Projectile>();
         p.type = type;
-        lastShotTime = Time.time; // p
+        lastShotTime = Time.time; 
         return (p);
+    }
+
+    // Method to set the angle used by the homing missile
+    public void setAngle()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy"); // collect the enemies on screen
+        float[] distances = new float[100];
+        int count = 0;
+        float closest = 10000;
+        Vector3 closestEnemy = Hero.S.transform.position;
+
+        // Determine and store the distance between the hero and the closest enemy
+        foreach (GameObject go in enemies)
+        {
+            distances[count] = Vector3.Distance(Hero.S.transform.position, go.transform.position);
+
+            if (closest > distances[count])
+            {
+                closest = distances[count];
+                closestEnemy = go.transform.position;
+            }
+            count++;
+        }
+        // Calculate the angle that the homing missile travels at
+        Vector3 targetDirection = closestEnemy - Hero.S.transform.position;
+        angle = Vector3.Angle(targetDirection, Vector3.up);
+        
+        // Flip the angle if the closest enemy is on the left
+        if(targetDirection.x < 0)
+            angle *= -1;
     }
 }

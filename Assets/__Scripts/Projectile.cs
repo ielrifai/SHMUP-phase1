@@ -34,7 +34,7 @@ public class Projectile : MonoBehaviour
     }
     void Update()
     {
-        if (_bndCheck.offUp)
+        if (_bndCheck.offUp || _bndCheck.offRight || _bndCheck.offLeft)
         { 
             Destroy(gameObject);
         }
@@ -47,6 +47,4 @@ public class Projectile : MonoBehaviour
         WeaponDefinition def = Main.GetWeaponDefinition(_type);
         _rend.material.color = def.projectileColor;
     }
-
-
 }

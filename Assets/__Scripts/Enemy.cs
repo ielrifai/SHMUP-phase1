@@ -5,13 +5,15 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     // Declare the variables
+    
     public float speed = 10f;
     public float fireRate = 0.3f;
-    public float health = 10;
-    public int points = 10; // used to calculate score
-    public int score = 100;
+    public float health = 0f;
+    public int points = 0; // used to calculate score
     public float x = 0;
     public float y = 0;
+    public bool notifiedOfDestruction = false;
+    public bool collided = false; // used to prevent multiple collisions
 
 
 
@@ -36,7 +38,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    
+
     void Update()
     {
         Move();
@@ -47,6 +49,11 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void LateUpdate()
+    {
+        collided = false;
+    }
     
     public virtual void Move()
     {
@@ -56,27 +63,67 @@ public class Enemy : MonoBehaviour
         pos = tempPos;
     }
 
+    // Used to set the enemy's health and the points rewarded for destroying them
     public void SetHealth(float x) 
     {
         health = x;
         points = (int)x/2 - 1;
     }
 
+
     // Allows the enemy to take damage
     private void OnCollisionEnter(Collision collision)
     {
         GameObject otherGO = collision.gameObject;
-        if (otherGO.tag == "ProjectileHero")
+
+        // if condition makes sure the same collision isn't registered multiple times (might not work properly???)
+        if (collided == false)
         {
-            Destroy(otherGO);  
-            health--;
-            if (health == 0)
+            // the blaster weapon may hit the same target multiple times, so it should be allowed to register multiple collisions (it should ALWAYS have a damage multiplier of 1)
+            // the missile weapon seems to collide multiple times, but since it has a higher damage multiplier, this statement will execute and it should only register one collision
+            if(Weapon.damageMultiplierStatic != 1)
+                collided = true;
+
+            // Handle a collision with the Nuke weapon
+            if (otherGO.tag == "Nuke")
             {
-                Score.AddScore(points);
-                Destroy(gameObject);  
+                Destroy(otherGO);
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                foreach (GameObject go in enemies)
+                {
+                    // Tell main that the ship was destroyed
+                    if (!notifiedOfDestruction)
+                    {
+                        Main.S.ShipDestroyed(this);
+                    }
+                    notifiedOfDestruction = true;
+                    Destroy(go);
+                    SoundManagerScript.PlaySound("nuke");
+                }
             }
+
+            // Handle a collision with the regular weapon
+            else if (otherGO.tag == "ProjectileHero")
+            {
+                Destroy(otherGO);
+                health -= Hero.projectileDamageStatic;
+                if (health <= 0)
+                {
+                    // Tell main that the ship was destroyed
+                    if (!notifiedOfDestruction)
+                    {
+                        Main.S.ShipDestroyed(this);
+                    }
+                    notifiedOfDestruction = true;
+                    if (points != 10) // if condition is used to fix a bug
+                        Score.AddScore(points);
+                    Destroy(gameObject);
+                    SoundManagerScript.PlaySound("point");
+                }
+            }
+
+            else
+                print("Enemy hit by a non-Projectile Hero: " + otherGO.name);
         }
-        else
-            print("Enemy hit by a non-Projectile Hero: " + otherGO.name);
     }
 }

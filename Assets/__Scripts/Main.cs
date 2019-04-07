@@ -13,10 +13,27 @@ public class Main : MonoBehaviour
     public float enemySpawnPerSecond = 0.5f;
     public float enemyDefaultpadding = 1.5f;
     public WeaponDefinition[] weaponDefinitions;
+    public GameObject prefabPowerUp;
     public Text scoreText;
     public Text highScoreText;
+    public int pUpDropChance = 15;
 
     private BoundsCheck _bndCheck;
+    public static int powerUpDropChanceStatic = 15; // used to store the chance of a powerup dropping
+
+    public void ShipDestroyed(Enemy e)
+    {
+        int rand = Random.Range(1, 100);
+
+        // Drop a powerup if the conditions are met
+        if(rand <= pUpDropChance)
+        {
+            GameObject go = Instantiate(prefabPowerUp) as GameObject;
+            PowerUp pu = go.GetComponent<PowerUp>();
+            pu.SetType(rand);
+            pu.transform.position = e.transform.position;
+        }
+    }
     
 
     //Called when the game starts
@@ -29,7 +46,9 @@ public class Main : MonoBehaviour
 
         WEAP_DICT = new Dictionary<WeaponType, WeaponDefinition>();
         foreach (WeaponDefinition def in weaponDefinitions)
+        {
             WEAP_DICT[def.type] = def;
+        }
 
         UpdateHighScore();// displays high score
     }
@@ -67,7 +86,7 @@ public class Main : MonoBehaviour
 
         // Update the high score
         if (Score.score > Score.highScore)
-            Score.AddHighScore(Score.score);
+            Score.ChangeHighScore(Score.score);
 
         Score.ResetScore(); // set the score to zero
     }
@@ -83,14 +102,17 @@ public class Main : MonoBehaviour
 
     public void UpdateScore()
     {
-        scoreText.text = "Score: " + Score.score.ToString(); // displays the score stored in the Score class
+        scoreText.text = "Score: " + Score.score.ToString(); // displays the score 
     }
+
     public void UpdateHighScore()
     {
-        highScoreText.text = "High Score: " + Score.highScore.ToString();// displays the higscore stored in the Score class
+        highScoreText.text = "High Score: " + Score.highScore.ToString();// displays the high score 
     }
+
     public void Update()
     {
         UpdateScore();// displays current score
+        powerUpDropChanceStatic = pUpDropChance;
     }
 }
