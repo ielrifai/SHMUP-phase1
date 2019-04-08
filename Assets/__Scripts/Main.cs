@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 public class Main : MonoBehaviour
 {
     static public Main S;
@@ -82,10 +83,10 @@ public class Main : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("_Scene_0");
+        SceneManager.LoadScene("Menu");
 
         // Update the high score
-        if (Score.score > Score.highScore)
+        if (Score.score > Score.GetHighScore())
             Score.ChangeHighScore(Score.score);
 
         Score.ResetScore(); // set the score to zero
@@ -107,7 +108,7 @@ public class Main : MonoBehaviour
 
     public void UpdateHighScore()
     {
-        highScoreText.text = "High Score: " + Score.highScore.ToString();// displays the high score 
+         highScoreText.text = "High Score: " + Score.GetHighScore().ToString();// displays the high score 
     }
 
     public void Update()

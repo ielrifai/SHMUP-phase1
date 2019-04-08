@@ -495,7 +495,7 @@ MonoBehaviour:
       type: 3}
     projectileColor: {r: 1, g: 1, b: 1, a: 1}
     multiplier: 1
-    delayBetweenShots: 0.3
+    delayBetweenShots: 0.25
     velocity: 50
   - type: 1
     color: {r: 1, g: 1, b: 1, a: 1}
@@ -570,7 +570,7 @@ MonoBehaviour:
       type: 3}
     projectileColor: {r: 1, g: 1, b: 1, a: 1}
     multiplier: 1
-    delayBetweenShots: 0.3
+    delayBetweenShots: 0.25
     velocity: 50
   - type: 1
     color: {r: 1, g: 1, b: 1, a: 1}
@@ -624,7 +624,7 @@ MonoBehaviour:
       type: 3}
     projectileColor: {r: 1, g: 1, b: 1, a: 1}
     multiplier: 1
-    delayBetweenShots: 0.3
+    delayBetweenShots: 0.25
     velocity: 50
   - type: 1
     color: {r: 1, g: 1, b: 1, a: 1}

@@ -253,9 +253,14 @@ MonoBehaviour:
   speed: 10
   fireRate: 0.3
   health: 10
-  points: 10
+  points: 0
   x: 0
   y: 0
+  showDamageDuration: 0.1
+  originalColors: []
+  materials: []
+  showingDamage: 0
+  damageDoneTime: 0
   notifiedOfDestruction: 0
   collided: 0
 --- !u!114 &4565056024421987659
@@ -294,9 +299,14 @@ MonoBehaviour:
   speed: 10
   fireRate: 0.3
   health: 10
-  points: 10
+  points: 2
   x: 0
   y: 0
+  showDamageDuration: 0.1
+  originalColors: []
+  materials: []
+  showingDamage: 0
+  damageDoneTime: 0
   notifiedOfDestruction: 0
   collided: 0
 --- !u!1 &8747334485249472806

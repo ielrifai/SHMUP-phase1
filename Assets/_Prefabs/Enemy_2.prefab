@@ -69,9 +69,16 @@ MonoBehaviour:
   speed: 10
   fireRate: 0.3
   health: 10
-  score: 100
+  points: 0
   x: 0
   y: 0
+  showDamageDuration: 0.1
+  originalColors: []
+  materials: []
+  showingDamage: 0
+  damageDoneTime: 0
+  notifiedOfDestruction: 0
+  collided: 0
 --- !u!114 &8587300748983215903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,9 +115,16 @@ MonoBehaviour:
   speed: 10
   fireRate: 0.3
   health: 10
-  score: 100
+  points: 3
   x: 0
   y: 0
+  showDamageDuration: 0.1
+  originalColors: []
+  materials: []
+  showingDamage: 0
+  damageDoneTime: 0
+  notifiedOfDestruction: 0
+  collided: 0
 --- !u!1 &6348005232451913762
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,16 +12,31 @@ public class Enemy : MonoBehaviour
     public int points = 0; // used to calculate score
     public float x = 0;
     public float y = 0;
+    public float showDamageDuration = 0.1f;
+
+    [Header("Set Dynamically: Enemy")]
+    public Color[] originalColors;
+    public Material[] materials;
+    public bool showingDamage = false;
+    public float damageDoneTime;
     public bool notifiedOfDestruction = false;
     public bool collided = false; // used to prevent multiple collisions
 
 
 
-    private BoundsCheck _bndCheck;
+    protected BoundsCheck _bndCheck;
+    protected char identifier;
 
     void Awake()
     {
         _bndCheck = GetComponent<BoundsCheck>();
+
+        materials = Utils.GetAllMaterials(gameObject);
+        originalColors = new Color[materials.Length];
+        for (int i = 0; i < materials.Length; i++)
+        {
+            originalColors[i] = materials[i].color;
+        }
 
     }
 
@@ -43,6 +58,11 @@ public class Enemy : MonoBehaviour
     {
         Move();
 
+        if (showingDamage && Time.time > damageDoneTime)
+        {
+            UnShowDamage();
+        }
+
         // Destroy the enemy
         if (_bndCheck != null && _bndCheck.offDown)
         {
@@ -63,13 +83,11 @@ public class Enemy : MonoBehaviour
         pos = tempPos;
     }
 
-    // Used to set the enemy's health and the points rewarded for destroying them
+    // Used to set the enemy's health 
     public void SetHealth(float x) 
     {
         health = x;
-        points = (int)x/2 - 1;
     }
-
 
     // Allows the enemy to take damage
     private void OnCollisionEnter(Collision collision)
@@ -105,6 +123,7 @@ public class Enemy : MonoBehaviour
             // Handle a collision with the regular weapon
             else if (otherGO.tag == "ProjectileHero")
             {
+                bool pointsCollected = false; // used to prevent the score from incrementing multiple times
                 Destroy(otherGO);
                 health -= Hero.projectileDamageStatic;
                 if (health <= 0)
@@ -115,15 +134,41 @@ public class Enemy : MonoBehaviour
                         Main.S.ShipDestroyed(this);
                     }
                     notifiedOfDestruction = true;
-                    if (points != 10) // if condition is used to fix a bug
+
+                    if (pointsCollected == false)
+                    {  
                         Score.AddScore(points);
+                        pointsCollected = true;
+                    }
+
                     Destroy(gameObject);
                     SoundManagerScript.PlaySound("point");
                 }
+                ShowDamage();
             }
 
             else
                 print("Enemy hit by a non-Projectile Hero: " + otherGO.name);
         }
+    }
+
+    void ShowDamage()
+    {
+        foreach (Material m in materials)
+        {
+            m.color = Color.red;
+
+        }
+        showingDamage = true;
+        damageDoneTime = Time.time + showDamageDuration;
+    }
+
+    void UnShowDamage()
+    {
+        for (int i = 0; i < materials.Length; i++)
+        {
+            materials[i].color = originalColors[i];
+        }
+        showingDamage = false;
     }
 }
