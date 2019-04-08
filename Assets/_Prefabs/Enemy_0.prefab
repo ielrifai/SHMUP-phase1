@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5975030190466285934}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -20, y: 10, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 5975030190588068979}
   - {fileID: 5975030191928243802}
@@ -81,6 +81,7 @@ MonoBehaviour:
   damageDoneTime: 0
   notifiedOfDestruction: 0
   collided: 0
+  pointsCollected: 0
 --- !u!114 &8070185629395442099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +128,7 @@ MonoBehaviour:
   damageDoneTime: 0
   notifiedOfDestruction: 0
   collided: 0
+  pointsCollected: 0
 --- !u!1 &5975030190559197697
 GameObject:
   m_ObjectHideFlags: 0

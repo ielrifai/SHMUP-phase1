@@ -9,7 +9,7 @@ public class Enemy_2_Movement : Enemy
     void Start()
     {
         y = -1;
-        this.SetHealth(9);
+        this.SetHealth(6); 
 
     }
 

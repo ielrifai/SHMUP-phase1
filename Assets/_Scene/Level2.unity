@@ -1084,9 +1084,9 @@ GameObject:
   - component: {fileID: 1276362596}
   - component: {fileID: 1276362595}
   - component: {fileID: 1276362591}
-  - component: {fileID: 1276362592}
   - component: {fileID: 1276362594}
   - component: {fileID: 1276362593}
+  - component: {fileID: 1276362592}
   m_Layer: 0
   m_Name: _MainCamera
   m_TagString: MainCamera
@@ -1117,7 +1117,7 @@ MonoBehaviour:
       type: 3}
     projectileColor: {r: 1, g: 1, b: 1, a: 1}
     multiplier: 1
-    delayBetweenShots: 0.25
+    delayBetweenShots: 0.2
     velocity: 50
   - type: 1
     color: {r: 1, g: 1, b: 1, a: 1}
@@ -1125,7 +1125,7 @@ MonoBehaviour:
       type: 3}
     projectileColor: {r: 1, g: 1, b: 1, a: 1}
     multiplier: 1
-    delayBetweenShots: 0.5
+    delayBetweenShots: 0.6
     velocity: 50
   - type: 3
     color: {r: 0, g: 1, b: 1, a: 1}
@@ -1161,8 +1161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabEnemies:
-  - {fileID: 5975030190466285934, guid: db4894753c67a164bb5ec39546f2061d, type: 3}
-  enemySpawnPerSecond: 0.4
+  - {fileID: 6348005231754075327, guid: 9776af09fee80b047b454679798988c5, type: 3}
+  enemySpawnPerSecond: 0.3
   enemyDefaultpadding: 1.5
   weaponDefinitions:
   - type: 0
@@ -1171,7 +1171,7 @@ MonoBehaviour:
       type: 3}
     projectileColor: {r: 1, g: 1, b: 1, a: 1}
     multiplier: 1
-    delayBetweenShots: 0.25
+    delayBetweenShots: 0.2
     velocity: 50
   - type: 1
     color: {r: 1, g: 1, b: 1, a: 1}
@@ -1179,7 +1179,7 @@ MonoBehaviour:
       type: 3}
     projectileColor: {r: 1, g: 1, b: 1, a: 1}
     multiplier: 1
-    delayBetweenShots: 0.5
+    delayBetweenShots: 0.6
     velocity: 50
   - type: 3
     color: {r: 0, g: 1, b: 1, a: 1}
@@ -1215,8 +1215,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabEnemies:
-  - {fileID: 6348005231754075327, guid: 9776af09fee80b047b454679798988c5, type: 3}
-  enemySpawnPerSecond: 0.4
+  - {fileID: 8747334484685108501, guid: a898d037fed479c41861f6f96993c1be, type: 3}
+  enemySpawnPerSecond: 0.3
   enemyDefaultpadding: 1.5
   weaponDefinitions:
   - type: 0
@@ -1225,7 +1225,7 @@ MonoBehaviour:
       type: 3}
     projectileColor: {r: 1, g: 1, b: 1, a: 1}
     multiplier: 1
-    delayBetweenShots: 0.25
+    delayBetweenShots: 0.2
     velocity: 50
   - type: 1
     color: {r: 1, g: 1, b: 1, a: 1}
@@ -1233,7 +1233,7 @@ MonoBehaviour:
       type: 3}
     projectileColor: {r: 1, g: 1, b: 1, a: 1}
     multiplier: 1
-    delayBetweenShots: 0.5
+    delayBetweenShots: 0.6
     velocity: 50
   - type: 3
     color: {r: 0, g: 1, b: 1, a: 1}
@@ -1269,8 +1269,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabEnemies:
-  - {fileID: 8747334484685108501, guid: a898d037fed479c41861f6f96993c1be, type: 3}
-  enemySpawnPerSecond: 0.4
+  - {fileID: 5975030190466285934, guid: db4894753c67a164bb5ec39546f2061d, type: 3}
+  enemySpawnPerSecond: 0.3
   enemyDefaultpadding: 1.5
   weaponDefinitions:
   - type: 0
@@ -1279,7 +1279,7 @@ MonoBehaviour:
       type: 3}
     projectileColor: {r: 1, g: 1, b: 1, a: 1}
     multiplier: 1
-    delayBetweenShots: 0.25
+    delayBetweenShots: 0.2
     velocity: 50
   - type: 1
     color: {r: 1, g: 1, b: 1, a: 1}
@@ -1287,7 +1287,7 @@ MonoBehaviour:
       type: 3}
     projectileColor: {r: 1, g: 1, b: 1, a: 1}
     multiplier: 1
-    delayBetweenShots: 0.5
+    delayBetweenShots: 0.6
     velocity: 50
   - type: 3
     color: {r: 0, g: 1, b: 1, a: 1}
