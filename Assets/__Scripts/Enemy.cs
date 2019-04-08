@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     public float damageDoneTime;
     public bool notifiedOfDestruction = false;
     public bool collided = false; // used to prevent multiple collisions
+    public bool pointsCollected = false; // used to prevent the score from incrementing multiple times
 
 
 
@@ -73,6 +74,7 @@ public class Enemy : MonoBehaviour
     void LateUpdate()
     {
         collided = false;
+        pointsCollected = false;
     }
     
     public virtual void Move()
@@ -123,7 +125,6 @@ public class Enemy : MonoBehaviour
             // Handle a collision with the regular weapon
             else if (otherGO.tag == "ProjectileHero")
             {
-                bool pointsCollected = false; // used to prevent the score from incrementing multiple times
                 Destroy(otherGO);
                 health -= Hero.projectileDamageStatic;
                 if (health <= 0)
